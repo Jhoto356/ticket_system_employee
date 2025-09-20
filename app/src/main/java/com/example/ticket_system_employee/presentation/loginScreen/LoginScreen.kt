@@ -1,4 +1,4 @@
-package com.example.ticket_system_employee
+package com.example.ticket_system_employee.presentation.loginScreen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,9 +11,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.ticket_system_employee.ui.theme.TicketSystemEmpleyeeTheme
+import com.example.ticket_system_employee.presentation.theme.TicketSystemEmpleyeeTheme
 
-class MainActivity : ComponentActivity() {
+class LoginScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

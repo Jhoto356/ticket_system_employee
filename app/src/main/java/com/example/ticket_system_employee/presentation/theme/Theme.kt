@@ -1,4 +1,4 @@
-package com.example.ticket_system_employee.ui.theme
+package com.example.ticket_system_employee.presentation.theme
 
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme

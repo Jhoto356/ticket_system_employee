@@ -1,4 +1,4 @@
-package com.example.ticket_system_employee.ui.theme
+package com.example.ticket_system_employee.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

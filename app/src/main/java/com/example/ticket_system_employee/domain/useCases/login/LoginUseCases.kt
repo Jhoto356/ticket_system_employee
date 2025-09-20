@@ -1,4 +1,6 @@
 package com.example.ticket_system_employee.domain.useCases.login
 
-sealed class LoginResult {
+import android.content.Context
+
+class LoginUseCases {
 }

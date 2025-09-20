@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">ticket_system_employee</string>
+    /** Login **/
+    <string name="txt_welcome">Bienvenido</string>
+    <string name="txt_error_login">Ocurrió un error al intentar iniciar sesión, por favor vuelve a intentarlo.</string>
 </resources>

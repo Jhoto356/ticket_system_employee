@@ -8,12 +8,13 @@ import com.example.ticket_system_employee.R
 
 class LoginRepositoryImp(private val context: Context): LoginRepository {
     companion object {
-        private val instance: LoginRepositoryImp ?= null
+        private var instance: LoginRepositoryImp ?= null
         fun getInstance(context: Context): LoginRepositoryImp {
             if (instance != null) {
-                return instance
+                return instance!!
             }
-            return LoginRepositoryImp(context)
+            instance = LoginRepositoryImp(context)
+            return instance!!
         }
 
     }

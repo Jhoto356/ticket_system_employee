@@ -7,6 +7,17 @@ import com.example.ticket_system_employee.presentation.commons.models.EmployeeTo
 import com.example.ticket_system_employee.R
 
 class LoginRepositoryImp(private val context: Context): LoginRepository {
+    companion object {
+        private val instance: LoginRepositoryImp ?= null
+        fun getInstance(context: Context): LoginRepositoryImp {
+            if (instance != null) {
+                return instance
+            }
+            return LoginRepositoryImp(context)
+        }
+
+    }
+
     override fun getContext(): Context { return context }
 
     override fun validateLogion(employee: EmployeeToLogin): LoginResult {

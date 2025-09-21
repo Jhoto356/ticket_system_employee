@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.ticket_system_employee.core.di.Module
 import com.example.ticket_system_employee.presentation.theme.TicketSystemEmpleyeeTheme
 
 class LoginScreen : ComponentActivity() {
@@ -19,6 +20,7 @@ class LoginScreen : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TicketSystemEmpleyeeTheme {
+                Module(this).loginUseCases.getContext()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
                         name = "Android",

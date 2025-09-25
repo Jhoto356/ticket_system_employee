@@ -1,5 +1,10 @@
 <resources>
     /** Login **/
     <string name="txt_welcome">Bienvenido</string>
+    <string name="txt_version">Version: %1$s</string>
     <string name="txt_error_login">Ocurrió un error al intentar iniciar sesión, por favor vuelve a intentarlo.</string>
+    <string name="txt_placeholder_domain">Dominio*</string>
+    <string name="txt_placeholder_email">Correo*</string>
+    <string name="txt_placeholder_password">Contraseña*</string>
+    <string name="txt_button_login">Iniciar Sesión</string>
 </resources>

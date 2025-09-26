@@ -1,8 +1,7 @@
 package com.example.ticket_system_employee.presentation.loginScreen
-
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.ticket_system_employee.R
 import com.example.ticket_system_employee.domain.result.login.LoginResult
 import com.example.ticket_system_employee.domain.useCases.login.LoginUseCases
 import com.example.ticket_system_employee.presentation.commons.models.EmployeeToLogin
@@ -23,7 +22,8 @@ data class LoginUIState(
     val isLoading: Boolean = false,
     val errorLogin: Boolean = false,
     val successLogin: Boolean = false,
-    val message: String = ""
+    val errorMessage: String = "",
+    val loadingMessage: String = ""
 )
 
 class LoginVM(
@@ -42,11 +42,11 @@ class LoginVM(
     }
 
     fun setErrorLogin(value: Boolean, message: String) {
-        loginUIState.update { it.copy(errorLogin = value, message = message) }
+        loginUIState.update { it.copy(errorLogin = value, errorMessage = message) }
     }
 
-    fun setIsLoading(value: Boolean) {
-        loginUIState.update { it.copy(isLoading = value) }
+    fun setIsLoading(value: Boolean, message: String) {
+        loginUIState.update { it.copy(isLoading = value, loadingMessage = message) }
     }
 
     fun setDomainValue(value: String) {
@@ -101,6 +101,7 @@ class LoginVM(
     }
 
     fun validateLogin() {
+        setIsLoading(value = true, message = context.getString(R.string.txt_verify_input_information))
         val uiState = loginUIState.value
         val employeeToLogin = EmployeeToLogin(
             companyName = uiState.domainValue,
@@ -110,9 +111,7 @@ class LoginVM(
         viewModelScope.launch(dispatcherIO) {
             when(val result = loginUseCases.validateLogin(employeeToLogin)) {
                 is LoginResult.SuccessLogin -> { setSuccessLogin(result.success) }
-                is LoginResult.ErrorLogin -> {
-                    setErrorLogin(true, result.message)
-                }
+                is LoginResult.ErrorLogin -> { setErrorLogin(true, result.message) }
             }
         }
     }

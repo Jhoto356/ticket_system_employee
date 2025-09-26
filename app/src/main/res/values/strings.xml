@@ -8,6 +8,7 @@
     <string name="txt_placeholder_email">Correo*</string>
     <string name="txt_placeholder_password">Contraseña*</string>
     <string name="txt_button_login">Iniciar Sesión</string>
+    <string name="txt_verify_input_information">Verificado información...</string>
     /** Dialogs **/
     <string name="txt_accept">Aceptar</string>
     <string name="txt_title_error_login">Error al iniciar\nsesión</string>

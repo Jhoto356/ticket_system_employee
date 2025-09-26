@@ -2,7 +2,6 @@ package com.example.ticket_system_employee.presentation.loginScreen
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -50,22 +49,26 @@ class LoginScreen : ComponentActivity() {
 }
 
 @Composable
-fun LoginDialogs() {
+fun LoginDialogs(navController: NavHostController) {
     val loginVM: LoginVM = koinViewModel<LoginVM>()
     val uiState = loginVM.loginUIStateValues.collectAsState().value
     val error = uiState.errorLogin
-    val message = uiState.message
+    val message = uiState.errorMessage
+    val success = uiState.successLogin
+    val isLoading = uiState.isLoading
+
+    if (isLoading) { SharedComponents.LoadingSplash(uiState.loadingMessage) }
+    if (success) {
+    }
     if (error) {
-        Log.i("Login", message)
-        loginVM.setIsLoading(true)
         val dialogModel = DialogModel(
             confirmAction = {
-                loginVM.setIsLoading(false)
                 loginVM.setErrorLogin(false, "")
             }, color = ErrorColor, message = message,
             title = stringResource(R.string.txt_title_error_login)
         )
         Dialogues.DialogErrorLogin(dialogModel)
+        loginVM.setIsLoading(false, "")
     }
 
 }
@@ -77,7 +80,7 @@ fun LoginMain(navController: NavHostController) {
 
     val scrollState = rememberScrollState()
     Box (modifier = Modifier.fillMaxSize().systemBarsPadding().imePadding().background(White)) {
-        LoginDialogs()
+        LoginDialogs(navController)
         Column(modifier = Modifier.align(Alignment.Center).fillMaxWidth(0.85f).fillMaxHeight(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally

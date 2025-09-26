@@ -14,7 +14,13 @@ interface EmployeeDao {
     @Query("SELECT * FROM Employee")
     fun getAllEmployees(): List<EmployeeEntity>
 
-    @Query("SELECT * FROM Employee WHERE email =:email AND password =:password AND company =:company")
+    @Query("SELECT * FROM Employee WHERE email =:email AND password =:password AND company =:company LIMIT 1")
     fun getEmployeeByCredential(email: String, password: String, company: Long): EmployeeEntity?
+
+    @Query("SELECT * FROM Employee WHERE inUse = 1 LIMIT 1")
+    fun getEmployeeInUse(): EmployeeEntity?
+
+    @Query("UPDATE Employee SET inUse = 1 WHERE id =:id")
+    fun updateEmployeeInUse(id: Long)
 
 }

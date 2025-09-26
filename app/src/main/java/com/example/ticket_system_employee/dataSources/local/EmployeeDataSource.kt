@@ -15,6 +15,16 @@ class EmployeeDataSource(private val employeeDao: EmployeeDao) {
         return employee?.toModel()
     }
 
+    fun getEmployeeInUse(): EmployeeAdapterToUI? {
+        val employee = employeeDao.getEmployeeInUse()
+        return employee?.toModel()
+
+    }
+
+    fun updateEmployeeInUse(id: Long) {
+        employeeDao.updateEmployeeInUse(id)
+    }
+
     fun getEmployees(): List<EmployeeAdapterToUI> {
         val listOfEntity = employeeDao.getAllEmployees()
         if (listOfEntity.isEmpty()) {
@@ -32,12 +42,12 @@ class EmployeeDataSource(private val employeeDao: EmployeeDao) {
             val lstEmployeesToSave = listOf(
                 EmployeeEntity(
                     document = "111222333", email = "maria.garcia@example.com",
-                    password = "securePass1", name = "María", secondName = "Fernanda", lastName = "García",
+                    password = "securePass1*", name = "María", secondName = "Fernanda", lastName = "García",
                     secondLastName = "López", enabled = true, inUse = true, company = companyId,
                 ),
                 EmployeeEntity(
                     document = "444555666", email = "juan.martinez@example.com",
-                    password = "password123", name = "Juan", secondName = null, lastName = "Martínez",
+                    password = "password_123", name = "Juan", secondName = null, lastName = "Martínez",
                     secondLastName = null, enabled = true, inUse = false, company = companyId
                 ),
                 EmployeeEntity(
@@ -45,7 +55,6 @@ class EmployeeDataSource(private val employeeDao: EmployeeDao) {
                     password = "myPass!234", name = "Ana", secondName = "Isabel", lastName = "Rodríguez",
                     secondLastName = null, enabled = false, inUse = true, company = companyId
                 )
-
             )
             employeeDao.insertEmployees(lstEmployeesToSave)
         } catch (e: Exception) {

@@ -3,7 +3,7 @@
     <string name="txt_welcome">Bienvenido</string>
     <string name="txt_version">Version: %1$s</string>
     <string name="txt_error_login">Ocurrió un error al intentar iniciar sesión, por favor vuelve a intentarlo.</string>
-    <string name="txt_error_verify_information">Ocurrió un error al verificar la información:\n1. Usted no se encuentra vinculado a %1$s.\n2. Correo o  contraseña incorrecta.\nPor favor verifica la información o comunícate con tu administrador.</string>
+    <string name="txt_error_verify_information">Ocurrió un error al verificar la información:\n 1. Usted no se encuentra vinculado a %1$s.\n 2. Correo o  contraseña incorrecta.\n 3. Dispositivo usado por otro usuario.\nPor favor verifica la información o comunícate con tu administrador.</string>
     <string name="txt_placeholder_domain">Dominio*</string>
     <string name="txt_placeholder_email">Correo*</string>
     <string name="txt_placeholder_password">Contraseña*</string>

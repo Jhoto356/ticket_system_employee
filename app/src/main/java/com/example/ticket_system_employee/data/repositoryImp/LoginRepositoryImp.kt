@@ -33,11 +33,19 @@ class LoginRepositoryImp(private val context: Context): LoginRepository {
                 val message = context.getString(R.string.txt_error_verify_information, company.companyName)
                 return LoginResult.ErrorLogin(message)
             }
+            val employeeInUse = employeeDataSource.getEmployeeInUse()
+            if (employeeInUse == null) {
+                employeeDataSource.updateEmployeeInUse(employee.id)
+                return LoginResult.SuccessLogin()
+            }
+            if (employeeInUse.id != employee.id) {
+                val message = context.getString(R.string.txt_error_verify_information, company.companyName)
+                LoginResult.ErrorLogin(message)
+            }
             LoginResult.SuccessLogin()
         } catch (e: Exception) {
             e.printStackTrace()
             val message = context.getString(R.string.txt_error_login)
-            Log.i("${javaClass.simpleName}", message)
             LoginResult.ErrorLogin(message)
         }
 

@@ -7,5 +7,6 @@ import com.example.ticket_system_employee.presentation.commons.models.EmployeeTo
 interface LoginRepository {
     fun getContext(): Context
     fun validateLogion(employee: EmployeeToLogin): LoginResult
+    fun validateInitialData()
 
 }

@@ -5,6 +5,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.ticket_system_employee.core.db.AppDB
 import com.example.ticket_system_employee.core.db.ConstantsDB
+import com.example.ticket_system_employee.core.db.daos.CompanyDao
 import com.example.ticket_system_employee.core.db.daos.EmployeeDao
 
 object DataBase {
@@ -17,6 +18,10 @@ object DataBase {
 
     fun providerEmployeeDao(db: AppDB): EmployeeDao {
         return db.employee()
+    }
+
+    fun providerCompanyDao(db: AppDB): CompanyDao {
+        return db.company()
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.ticket_system_employee.core.di
 
 import com.example.ticket_system_employee.data.repositoryImp.LoginRepositoryImp
+import com.example.ticket_system_employee.dataSources.local.CompanyDataSource
 import com.example.ticket_system_employee.dataSources.local.EmployeeDataSource
 import com.example.ticket_system_employee.domain.repository.login.LoginRepository
 import com.example.ticket_system_employee.domain.useCases.login.LoginUseCases
@@ -14,14 +15,12 @@ val appModule = module {
 
 val dataBaseModule = module {
     single { DataBase.providerEmployeeDao(get()) }
+    single { DataBase.providerCompanyDao(get()) }
 }
 
 val dataSourcesModule = module {
-    single { EmployeeDataSource() }
-}
-
-val viewModelModule = module {
-    factory { LoginVM() }
+    single { CompanyDataSource(get()) }
+    single { EmployeeDataSource(get()) }
 }
 
 val repositoryImpModule = module {
@@ -29,8 +28,14 @@ val repositoryImpModule = module {
 }
 
 val useCaseModule = module {
-    factory { LoginUseCases(get()) }
+    single { LoginUseCases(get()) }
 }
+
+val viewModelModule = module {
+    factory<LoginVM> { LoginVM(get()) }
+}
+
+
 
 
 

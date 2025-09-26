@@ -14,7 +14,14 @@ class Application: Application() {
         startKoin {
             androidLogger(Level.ERROR)
             androidContext(applicationContext)
-            modules(appModule + dataBaseModule + dataSourcesModule + viewModelModule + useCaseModule + repositoryImpModule)
+            modules(
+                appModule,
+                dataBaseModule,
+                dataSourcesModule,
+                repositoryImpModule,
+                useCaseModule,
+                viewModelModule
+            )
         }
     }
 

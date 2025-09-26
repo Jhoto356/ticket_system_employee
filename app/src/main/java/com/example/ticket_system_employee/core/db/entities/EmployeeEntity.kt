@@ -6,7 +6,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.example.ticket_system_employee.core.db.ConstantsDB
 
-@Entity(tableName = ConstantsDB.EMPLOYEE_TABLE, indices = [Index(value = ["document", "email"], unique = true)])
+@Entity(tableName = ConstantsDB.EMPLOYEE_TABLE, indices = [Index(value = ["document", "email", "inUse"], unique = true)])
 data class EmployeeEntity (
     @PrimaryKey(true)
     @ColumnInfo("id")
@@ -26,5 +26,9 @@ data class EmployeeEntity (
     @ColumnInfo("secondLastName")
     val secondLastName: String?,
     @ColumnInfo("enabled")
-    val enabled: Boolean
+    val enabled: Boolean,
+    @ColumnInfo("inUse")
+    val inUse: Boolean,
+    @ColumnInfo("company")
+    val company: Long
 )

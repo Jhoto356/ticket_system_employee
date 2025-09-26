@@ -1,5 +1,6 @@
 package com.example.ticket_system_employee.presentation.loginScreen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ticket_system_employee.domain.result.login.LoginResult
@@ -41,7 +42,7 @@ class LoginVM(
     }
 
     fun setErrorLogin(value: Boolean, message: String) {
-        loginUIState.update { it.copy(errorLogin = value,) }
+        loginUIState.update { it.copy(errorLogin = value, message = message) }
     }
 
     fun setIsLoading(value: Boolean) {
@@ -109,7 +110,9 @@ class LoginVM(
         viewModelScope.launch(dispatcherIO) {
             when(val result = loginUseCases.validateLogin(employeeToLogin)) {
                 is LoginResult.SuccessLogin -> { setSuccessLogin(result.success) }
-                is LoginResult.ErrorLogin -> { setErrorLogin(true, result.message) }
+                is LoginResult.ErrorLogin -> {
+                    setErrorLogin(true, result.message)
+                }
             }
         }
     }

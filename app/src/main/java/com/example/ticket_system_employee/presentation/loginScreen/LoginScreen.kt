@@ -2,6 +2,7 @@ package com.example.ticket_system_employee.presentation.loginScreen
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
@@ -26,14 +27,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ticket_system_employee.BuildConfig
 import com.example.ticket_system_employee.R
 import com.example.ticket_system_employee.core.navigation.StartupNavHost
+import com.example.ticket_system_employee.presentation.commons.models.DialogModel
 import com.example.ticket_system_employee.presentation.commons.models.TextFieldModel
 import com.example.ticket_system_employee.presentation.commons.models.TrailingIconTypes
+import com.example.ticket_system_employee.presentation.commons.shared.Dialogues
 import com.example.ticket_system_employee.presentation.commons.shared.SharedComponents
 import com.example.ticket_system_employee.presentation.commons.shared.SharedComponents.getModifierWithOnFocusChanged
-import com.example.ticket_system_employee.presentation.theme.Black
-import com.example.ticket_system_employee.presentation.theme.TextStyles
-import com.example.ticket_system_employee.presentation.theme.TicketSystemEmployeeTheme
-import com.example.ticket_system_employee.presentation.theme.White
+import com.example.ticket_system_employee.presentation.theme.*
 import org.koin.androidx.compose.koinViewModel
 
 class LoginScreen : ComponentActivity() {
@@ -50,12 +50,34 @@ class LoginScreen : ComponentActivity() {
 }
 
 @Composable
+fun LoginDialogs() {
+    val loginVM: LoginVM = koinViewModel<LoginVM>()
+    val uiState = loginVM.loginUIStateValues.collectAsState().value
+    val error = uiState.errorLogin
+    val message = uiState.message
+    if (error) {
+        Log.i("Login", message)
+        loginVM.setIsLoading(true)
+        val dialogModel = DialogModel(
+            confirmAction = {
+                loginVM.setIsLoading(false)
+                loginVM.setErrorLogin(false, "")
+            }, color = ErrorColor, message = message,
+            title = stringResource(R.string.txt_title_error_login)
+        )
+        Dialogues.DialogErrorLogin(dialogModel)
+    }
+
+}
+
+@Composable
 fun LoginMain(navController: NavHostController) {
     val context: Context = LocalContext.current
     val activity = context as ComponentActivity
 
     val scrollState = rememberScrollState()
     Box (modifier = Modifier.fillMaxSize().systemBarsPadding().imePadding().background(White)) {
+        LoginDialogs()
         Column(modifier = Modifier.align(Alignment.Center).fillMaxWidth(0.85f).fillMaxHeight(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
@@ -93,9 +115,7 @@ fun LoginForm(modifier: Modifier) {
     val enabledButton = uiState.enabledButton
     val passwordVisible = uiState.passwordVisible
     val passwordFocus = uiState.passwordFocus
-    val onClick = {
-
-    }
+    val onClick = { loginVM.validateLogin() }
     Column(modifier = modifier, verticalArrangement = Arrangement.Center) {
         val domainTextFieldModel = TextFieldModel(
             label = { Text(stringResource(R.string.txt_placeholder_domain))  }

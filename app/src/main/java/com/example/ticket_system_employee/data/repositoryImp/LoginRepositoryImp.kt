@@ -1,6 +1,7 @@
 package com.example.ticket_system_employee.data.repositoryImp
 
 import android.content.Context
+import android.util.Log
 import com.example.ticket_system_employee.domain.repository.login.LoginRepository
 import com.example.ticket_system_employee.domain.result.login.LoginResult
 import com.example.ticket_system_employee.presentation.commons.models.EmployeeToLogin
@@ -21,20 +22,22 @@ class LoginRepositoryImp(private val context: Context): LoginRepository {
         return try {
             val company = companyDataSource.getCompanyByName(employee.companyName)
             if (company == null) {
-                val message = context.getString(R.string.txt_not_linked_to_company)
+                val message = context.getString(R.string.txt_error_verify_information, employee.companyName)
+                Log.i("${javaClass.simpleName}", message)
                 return LoginResult.ErrorLogin(message)
             }
             val employee = employeeDataSource.getEmployeeByCredentials(
                 employee.email, employee.password, company.id
             )
             if (employee == null) {
-                val message = context.getString(R.string.txt_not_linked_to_company)
+                val message = context.getString(R.string.txt_error_verify_information, company.companyName)
                 return LoginResult.ErrorLogin(message)
             }
             LoginResult.SuccessLogin()
         } catch (e: Exception) {
             e.printStackTrace()
             val message = context.getString(R.string.txt_error_login)
+            Log.i("${javaClass.simpleName}", message)
             LoginResult.ErrorLogin(message)
         }
 

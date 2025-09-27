@@ -5,8 +5,8 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.ticket_system_employee.presentation.commons.mainScreen.MainView
-import com.example.ticket_system_employee.presentation.commons.myProfile.MyProfileView
+import com.example.ticket_system_employee.presentation.mainScreen.MainView
+import com.example.ticket_system_employee.presentation.myProfile.MyProfileView
 import com.example.ticket_system_employee.presentation.loginScreen.LoginView
 
 private fun NavGraphBuilder.loginNav(navController: NavHostController) {
@@ -23,12 +23,8 @@ private fun NavGraphBuilder.loginNav(navController: NavHostController) {
 }
 
 private fun NavGraphBuilder.myProfileNav(navController: NavHostController) {
-    composable<ProfileRoute> {
-        MyProfileView(
-            onNavToMain = {
-                navController.popBackStack()
-            }
-        )
+    composable<MyProfileRoute> {
+        MyProfileView(navController)
     }
 
 }

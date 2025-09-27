@@ -3,6 +3,7 @@ package com.example.ticket_system_employee.presentation.commons.shared
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,7 +13,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
@@ -28,8 +29,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.ticket_system_employee.R
+import com.example.ticket_system_employee.core.navigation.MyProfileRoute
 import com.example.ticket_system_employee.core.navigation.NewRequestRoute
-import com.example.ticket_system_employee.core.navigation.ProfileRoute
 import com.example.ticket_system_employee.presentation.commons.models.*
 import com.example.ticket_system_employee.presentation.theme.*
 
@@ -100,7 +101,7 @@ object SharedComponents {
     fun BottomNavigationBar(navController: NavController) {
         val context = LocalContext.current
         val activity = context as ComponentActivity
-        val selectedItem = rememberSaveable { NavItem.NONE }
+        val selectedItem = remember { NavItem.NONE }
         val destinations = listOf(
             NavItemOption(
                 item = NavItem.NEW_REQUEST,
@@ -112,7 +113,7 @@ object SharedComponents {
             ),
             NavItemOption(
                 item = NavItem.MY_PROFILE,
-                action = { navController.navigate(ProfileRoute) }
+                action = { navController.navigate(MyProfileRoute) }
             )
         )
         Column(modifier = Modifier.fillMaxWidth()) {
@@ -131,7 +132,6 @@ object SharedComponents {
                         colors = GenericProperties.navItemColors, modifier = Modifier.weight(1f),
                         label =  { LabelItemIcon(navItemOption.item.title!!) },
                         onClick =  {
-
                             navItemOption.action.invoke()
                         }
                     )
@@ -156,7 +156,8 @@ object SharedComponents {
                 if (toolBarModel.showBackIcon) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = null, tint = Black
+                        contentDescription = null, tint = Black,
+                        modifier = Modifier.clickable(onClick = { toolBarModel.backAction.invoke() })
                     )
                 }
             }, colors = GenericProperties.whiteTopAppBarColors
@@ -255,14 +256,38 @@ object SharedComponents {
     }
 
     @Composable
-    fun BlueFilledButton(modifier: Modifier, enabled: Boolean = true, onClick: () -> Unit) {
+    fun BlueFilledButton(modifier: Modifier, enabled: Boolean = true, onClick: () -> Unit, text: Int) {
         Button(
             colors = ComponentStyles.blueFilledButton, onClick = { onClick.invoke() },
             enabled = enabled, modifier = modifier
         ) {
             Text(
-                text = stringResource(R.string.txt_button_login),
+                text = stringResource(text),
                 style= TextStyles.buttonFilledStyle(),
+            )
+        }
+
+    }
+
+    @Composable
+    fun Subtitle(subtitle: String, modifier: Modifier) {
+        Text(
+            text = subtitle, modifier = modifier,
+            style = TextStyles.subtitleSectionStyle(Black)
+        )
+    }
+
+    @Composable
+    fun InformationItem(subtitle: String, information: String, modifier: Modifier) {
+        Column(modifier = modifier) {
+            Text(
+                text = subtitle, modifier = Modifier.fillMaxWidth(),
+                style = TextStyles.subtitleInformationStyle(Black)
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+            Text(
+                text = information, modifier = Modifier.fillMaxWidth(),
+                style = TextStyles.informationItemStyle(Black)
             )
         }
 

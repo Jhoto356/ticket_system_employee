@@ -1,4 +1,4 @@
-package com.example.ticket_system_employee.presentation.commons.mainScreen
+package com.example.ticket_system_employee.presentation.mainScreen
 
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler

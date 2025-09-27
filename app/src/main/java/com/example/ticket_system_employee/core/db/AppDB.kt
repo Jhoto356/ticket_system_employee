@@ -14,9 +14,9 @@ import com.example.ticket_system_employee.core.db.entities.EmployeeEntity
     ],
     version = ConstantsDB.DB_VERSION,
     exportSchema = true
+
 )
 abstract class AppDB: RoomDatabase() {
     abstract fun employee(): EmployeeDao
     abstract fun company(): CompanyDao
-
 }

@@ -1,19 +1,19 @@
-package com.example.ticket_system_employee.data.repositoryImp
+package com.example.ticket_system_employee.data.repositoryImp.login
 
 import android.content.Context
 import android.util.Log
-import com.example.ticket_system_employee.domain.repository.login.LoginRepository
-import com.example.ticket_system_employee.domain.result.login.LoginResult
-import com.example.ticket_system_employee.presentation.commons.models.EmployeeToLogin
 import com.example.ticket_system_employee.R
 import com.example.ticket_system_employee.dataSources.local.CompanyDataSource
 import com.example.ticket_system_employee.dataSources.local.EmployeeDataSource
-import org.koin.java.KoinJavaComponent.inject
+import com.example.ticket_system_employee.domain.repository.login.LoginRepository
+import com.example.ticket_system_employee.domain.result.login.LoginResult
+import com.example.ticket_system_employee.presentation.commons.models.EmployeeToLogin
+import org.koin.java.KoinJavaComponent
 
 class LoginRepositoryImp(private val context: Context): LoginRepository {
     /** DATA SOURCES **/
-    private val companyDataSource: CompanyDataSource by inject(CompanyDataSource::class.java)
-    private val employeeDataSource: EmployeeDataSource by inject(EmployeeDataSource::class.java)
+    private val companyDataSource: CompanyDataSource by KoinJavaComponent.inject(CompanyDataSource::class.java)
+    private val employeeDataSource: EmployeeDataSource by KoinJavaComponent.inject(EmployeeDataSource::class.java)
 
     /** METHODS **/
     override fun getContext(): Context { return context }

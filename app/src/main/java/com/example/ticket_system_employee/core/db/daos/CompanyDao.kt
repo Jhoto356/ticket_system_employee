@@ -13,6 +13,9 @@ interface CompanyDao {
     @Query("SELECT * FROM Company WHERE companyName =:companyName")
     fun getCompanyByName(companyName: String): CompanyEntity?
 
+    @Query("SELECT * FROM Company WHERE id =:id")
+    fun getCompanyById(id: Long): CompanyEntity?
+
     @Insert
     fun insertCompany(company: CompanyEntity)
 

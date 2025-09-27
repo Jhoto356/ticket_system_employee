@@ -14,6 +14,19 @@
     <string name="txt_go_new_request">Crear Solicitud</string>
     <string name="txt_close_session">Cerrar Sesión</string>
     <string name="txt_go_my_profile">Mi Perfil</string>
+    /** Profile **/
+    <string name="txt_my_profile">Mi Perfil</string>
+    <string name="txt_button_change_password">Cambiar Contraseña</string>
+    <string name="txt_employee_information">Información del Empleado</string>
+    <string name="txt_company_information">Información de la Empresa</string>
+    <string name="txt_name">Nombre:</string>
+    <string name="txt_nit">NIT:</string>
+    <string name="txt_document">Documento:</string>
+    <string name="txt_document_information">CC(%1$s)</string>
+    <string name="txt_full_name_or_last_name">%1$s %2$s</string>
+    <string name="txt_last_name">Apellidos:</string>
+    <string name="txt_email">Correo:</string>
+    <string name="txt_error_get_employee_with_company">Ocurrió un error al obtener la información de la empresa y/o empleado.</string>
     /** Dialogs **/
     <string name="txt_accept">Aceptar</string>
     <string name="txt_title_error_login">Error al iniciar\nsesión</string>

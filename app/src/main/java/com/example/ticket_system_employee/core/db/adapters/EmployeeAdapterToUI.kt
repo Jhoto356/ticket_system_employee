@@ -8,11 +8,12 @@ data class EmployeeAdapterToUI(
     val email: String,
     val password: String,
     val name: String,
-    val secondName: String?,
+    val secondName: String? = "",
     val lastName: String,
-    val secondLastName: String?,
+    val secondLastName: String? = "",
     val enabled: Boolean,
-    val inUse: Boolean
+    val inUse: Boolean,
+    val company: Long
 )
 
 fun EmployeeEntity.toModel() = EmployeeAdapterToUI(
@@ -25,7 +26,8 @@ fun EmployeeEntity.toModel() = EmployeeAdapterToUI(
     lastName = lastName,
     secondLastName = secondLastName,
     enabled = enabled,
-    inUse = inUse
+    inUse = inUse,
+    company = company
 
 )
 

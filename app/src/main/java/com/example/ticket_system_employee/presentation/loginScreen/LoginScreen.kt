@@ -21,7 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.ticket_system_employee.BuildConfig
 import com.example.ticket_system_employee.R
@@ -154,7 +153,9 @@ fun LoginForm(modifier: Modifier) {
             isPasswordVisible = passwordVisible,
             isFocused = passwordFocus
         )
-        SharedComponents.BlueFilledButton(modifier.fillMaxWidth(), enabledButton, onClick)
+        SharedComponents.BlueFilledButton(
+            modifier.fillMaxWidth(), enabledButton, onClick, R.string.txt_button_login)
+
     }
 
 }

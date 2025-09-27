@@ -9,9 +9,30 @@ import androidx.compose.ui.unit.sp
 object TextStyles {
     fun titleStyle(color: Color) = TextStyle(
         color = color,
-        fontSize = 24.sp,
+        fontSize = 22.sp,
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Center
+    )
+
+    fun subtitleSectionStyle(color: Color) = TextStyle(
+        color = color,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.SemiBold,
+        textAlign = TextAlign.Start
+    )
+
+    fun subtitleInformationStyle(color: Color) = TextStyle(
+        color = color,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Medium,
+        textAlign = TextAlign.Start
+    )
+
+    fun informationItemStyle(color: Color) = TextStyle(
+        color = color,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal,
+        textAlign = TextAlign.Start
     )
 
     fun contentStyle(color: Color) = TextStyle(

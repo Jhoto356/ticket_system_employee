@@ -12,6 +12,12 @@ class CompanyDataSource(private val companyDao: CompanyDao) {
 
     }
 
+    fun getCompanyById(id: Long): CompanyAdapterToUI? {
+        val company = companyDao.getCompanyById(id)
+        return company?.toModel()
+
+    }
+
     fun getCompany(): CompanyAdapterToUI? {
         val companyEntity = companyDao.getCompany()
         return companyEntity?.toModel()

@@ -9,7 +9,7 @@ object LoginRoute
 object MainRoute
 
 @Serializable
-object ProfileRoute
+object MyProfileRoute
 
 @Serializable
 object NewRequestRoute

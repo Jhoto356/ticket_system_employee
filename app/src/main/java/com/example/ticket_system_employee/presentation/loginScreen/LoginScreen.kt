@@ -49,7 +49,7 @@ class LoginScreen : ComponentActivity() {
 }
 
 @Composable
-fun LoginDialogs(navController: NavHostController) {
+fun LoginDialogs(onNavToMain: () -> Unit) {
     val loginVM: LoginVM = koinViewModel<LoginVM>()
     val uiState = loginVM.loginUIStateValues.collectAsState().value
     val error = uiState.errorLogin
@@ -58,8 +58,7 @@ fun LoginDialogs(navController: NavHostController) {
     val isLoading = uiState.isLoading
 
     if (isLoading) { SharedComponents.LoadingSplash(uiState.loadingMessage) }
-    if (success) {
-    }
+    if (success) { onNavToMain.invoke() }
     if (error) {
         val dialogModel = DialogModel(
             confirmAction = {
@@ -74,13 +73,13 @@ fun LoginDialogs(navController: NavHostController) {
 }
 
 @Composable
-fun LoginMain(navController: NavHostController) {
+fun LoginView(onNavToMain: () -> Unit) {
     val context: Context = LocalContext.current
     val activity = context as ComponentActivity
 
     val scrollState = rememberScrollState()
     Box (modifier = Modifier.fillMaxSize().systemBarsPadding().imePadding().background(White)) {
-        LoginDialogs(navController)
+        LoginDialogs(onNavToMain)
         Column(modifier = Modifier.align(Alignment.Center).fillMaxWidth(0.85f).fillMaxHeight(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally

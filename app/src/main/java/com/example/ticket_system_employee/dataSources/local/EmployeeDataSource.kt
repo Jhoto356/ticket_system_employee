@@ -43,7 +43,7 @@ class EmployeeDataSource(private val employeeDao: EmployeeDao) {
                 EmployeeEntity(
                     document = "111222333", email = "maria.garcia@example.com",
                     password = "securePass1*", name = "María", secondName = "Fernanda", lastName = "García",
-                    secondLastName = "López", enabled = true, inUse = true, company = companyId,
+                    secondLastName = "López", enabled = true, inUse = false, company = companyId,
                 ),
                 EmployeeEntity(
                     document = "444555666", email = "juan.martinez@example.com",
@@ -53,7 +53,7 @@ class EmployeeDataSource(private val employeeDao: EmployeeDao) {
                 EmployeeEntity(
                     document = "777888999", email = "ana.rodriguez@example.com",
                     password = "myPass!234", name = "Ana", secondName = "Isabel", lastName = "Rodríguez",
-                    secondLastName = null, enabled = false, inUse = true, company = companyId
+                    secondLastName = null, enabled = true, inUse = false, company = companyId
                 )
             )
             employeeDao.insertEmployees(lstEmployeesToSave)

@@ -9,6 +9,11 @@
     <string name="txt_placeholder_password">Contraseña*</string>
     <string name="txt_button_login">Iniciar Sesión</string>
     <string name="txt_verify_input_information">Verificado información...</string>
+    /** Main **/
+    <string name="txt_my_tickets">Mis Solicitudes</string>
+    <string name="txt_go_new_request">Crear Solicitud</string>
+    <string name="txt_close_session">Cerrar Sesión</string>
+    <string name="txt_go_my_profile">Mi Perfil</string>
     /** Dialogs **/
     <string name="txt_accept">Aceptar</string>
     <string name="txt_title_error_login">Error al iniciar\nsesión</string>

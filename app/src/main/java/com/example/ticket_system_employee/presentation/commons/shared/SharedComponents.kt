@@ -1,46 +1,37 @@
 package com.example.ticket_system_employee.presentation.commons.shared
 
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import com.example.ticket_system_employee.R
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.ticket_system_employee.presentation.commons.models.TextFieldModel
-import com.example.ticket_system_employee.presentation.commons.models.TrailingIconTypes
-import com.example.ticket_system_employee.presentation.theme.Black
-import com.example.ticket_system_employee.presentation.theme.Blue
-import com.example.ticket_system_employee.presentation.theme.ComponentStyles
-import com.example.ticket_system_employee.presentation.theme.Gray
-import com.example.ticket_system_employee.presentation.theme.TextStyles
-import com.example.ticket_system_employee.presentation.theme.White
+import androidx.navigation.NavController
+import com.example.ticket_system_employee.R
+import com.example.ticket_system_employee.core.navigation.NewRequestRoute
+import com.example.ticket_system_employee.core.navigation.ProfileRoute
+import com.example.ticket_system_employee.presentation.commons.models.*
+import com.example.ticket_system_employee.presentation.theme.*
 
 object SharedComponents {
     @Composable
@@ -88,6 +79,89 @@ object SharedComponents {
     ): Modifier = this.then(
         Modifier.onFocusChanged { onFocusChanged(it.isFocused) }
     )
+
+    @Composable
+    private fun NavItemIcon(imageVector: ImageVector) {
+        Icon(
+            imageVector = imageVector,
+            contentDescription = null
+        )
+    }
+
+    @Composable
+    private fun LabelItemIcon(text: Int) {
+        Text(
+            text = stringResource(text),
+            style = TextStyles.bottomNavItemStyle()
+        )
+    }
+
+    @Composable
+    fun BottomNavigationBar(navController: NavController) {
+        val context = LocalContext.current
+        val activity = context as ComponentActivity
+        val selectedItem = rememberSaveable { NavItem.NONE }
+        val destinations = listOf(
+            NavItemOption(
+                item = NavItem.NEW_REQUEST,
+                action = { navController.navigate(NewRequestRoute) }
+            ),
+            NavItemOption(
+                item = NavItem.LOGOUT,
+                action = { activity.finish() }
+            ),
+            NavItemOption(
+                item = NavItem.MY_PROFILE,
+                action = { navController.navigate(ProfileRoute) }
+            )
+        )
+        Column(modifier = Modifier.fillMaxWidth()) {
+            HorizontalDivider(
+                modifier = Modifier.fillMaxWidth(), color = Gray, thickness = 1.dp
+            )
+            NavigationBar(
+                modifier = Modifier.fillMaxWidth(),
+                containerColor = White,
+                contentColor = Black
+            ) {
+                destinations.forEach { navItemOption ->
+                    val selected = navItemOption.item == selectedItem
+                    NavigationBarItem(
+                        selected = selected, icon = { NavItemIcon(navItemOption.item.imageVector!!) },
+                        colors = GenericProperties.navItemColors, modifier = Modifier.weight(1f),
+                        label =  { LabelItemIcon(navItemOption.item.title!!) },
+                        onClick =  {
+
+                            navItemOption.action.invoke()
+                        }
+                    )
+
+                }
+            }
+        }
+
+    }
+
+    @OptIn(ExperimentalMaterial3Api::class)
+    @Composable
+    fun ToolBar(toolBarModel: ToolBarModel) {
+        TopAppBar(
+            title = {
+                Text(
+                    text = toolBarModel.title, modifier = Modifier.fillMaxWidth(),
+                    style = TextStyles.titleStyle(Black)
+                )
+            }, modifier = Modifier.fillMaxWidth(),
+            navigationIcon = {
+                if (toolBarModel.showBackIcon) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = null, tint = Black
+                    )
+                }
+            }, colors = GenericProperties.whiteTopAppBarColors
+        )
+    }
 
     @Composable
     fun LoadingSplash(message: String = "") {

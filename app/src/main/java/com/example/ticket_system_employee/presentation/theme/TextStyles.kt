@@ -42,6 +42,12 @@ object TextStyles {
         textAlign = TextAlign.Center
     )
 
+    fun bottomNavItemStyle() = TextStyle(
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal,
+        textAlign = TextAlign.Center
+    )
+
     fun versionStyle(color: Color) = TextStyle(
         color = color,
         fontSize = 16.sp,

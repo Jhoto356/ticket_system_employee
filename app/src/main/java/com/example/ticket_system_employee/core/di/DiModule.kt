@@ -10,6 +10,7 @@ import com.example.ticket_system_employee.domain.repository.myProfile.MyProfileR
 import com.example.ticket_system_employee.domain.repository.newRequest.NewRequestRepository
 import com.example.ticket_system_employee.domain.useCases.login.LoginUseCases
 import com.example.ticket_system_employee.domain.useCases.myProfile.MyProfileUseCases
+import com.example.ticket_system_employee.domain.useCases.newRequest.NewRequestUseCases
 import com.example.ticket_system_employee.presentation.myProfileScreen.MyProfileVM
 import com.example.ticket_system_employee.presentation.loginScreen.LoginVM
 import com.example.ticket_system_employee.presentation.newRequestScreen.NewRequestVM
@@ -40,12 +41,13 @@ val repositoryImpModule = module {
 val useCaseModule = module {
     single { MyProfileUseCases(get()) }
     single { LoginUseCases(get()) }
+    single { NewRequestUseCases(get()) }
 }
 
 val viewModelModule = module {
+    viewModel<NewRequestVM> { NewRequestVM(get()) }
     viewModel<MyProfileVM> { MyProfileVM(get()) }
     viewModel<LoginVM> { LoginVM(get()) }
-    viewModel<NewRequestVM> { NewRequestVM(get()) }
 }
 
 

@@ -39,28 +39,27 @@ fun MyProfileView(navController: NavController) {
         backAction =  { navController.popBackStack() }, showBackIcon = true
     )
     val scrollState = rememberScrollState()
-    Box(modifier = Modifier.fillMaxWidth()) {
+    Column(
+        modifier = Modifier.fillMaxSize().background(White).systemBarsPadding().imePadding(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        SharedComponents.ToolBar(toolBarModel)
         Column(
-            modifier = Modifier.fillMaxWidth().background(White),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier = Modifier.fillMaxWidth(0.85f).weight(1f).padding(vertical = 16.dp)
+                .verticalScroll(scrollState)
         ) {
-            SharedComponents.ToolBar(toolBarModel)
-            Column(
-                modifier = Modifier.fillMaxWidth(0.85f).weight(1f).padding(vertical = 16.dp)
-                    .verticalScroll(scrollState)
-            ) {
-                CompanyInformation()
-                EmployeeInformation()
-            }
-            SharedComponents.BlueFilledButton(
-                modifier = Modifier.fillMaxWidth(0.9f).padding(bottom = 24.dp),
-                text = R.string.txt_button_change_password, enabled = uiSate.enabledButtonChangePassword,
-                onClick = { myProfileVM.setShowDialogChangePassword(true) }
-            )
+            CompanyInformation()
+            EmployeeInformation()
         }
-        Dialogs(navController)
-        if (uiSate.isLoading) { SharedComponents.LoadingSplash(uiSate.loadingMessage) }
+        SharedComponents.BlueFilledButton(
+            modifier = Modifier.fillMaxWidth(0.9f).padding(bottom = 16.dp),
+            text = R.string.txt_button_change_password, enabled = uiSate.enabledButtonChangePassword,
+            onClick = { myProfileVM.setShowDialogChangePassword(true) }
+        )
     }
+    Dialogs(navController)
+    if (uiSate.isLoading) { SharedComponents.LoadingSplash(uiSate.loadingMessage) }
+
 
 }
 
@@ -242,8 +241,8 @@ fun ChangePasswordForm(modifier: Modifier) {
             textFieldModel = confirmPasswordTextFieldModel,
             isPasswordVisible = uiState.confirmPasswordVisible, isFocused = uiState.confirmPasswordFocus
         )
-
     }
+
 }
 
 @Composable

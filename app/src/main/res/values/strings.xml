@@ -37,6 +37,13 @@
     <string name="txt_error_current_password_wrong">Contraseña actual incorrecta.</string>
     <string name="txt_error_new_and_confirm_password_wrong">Las contraseñas no coinciden.</string>
     <string name="txt_change_password_success">El cambio de contraseña fue correcto, a continuación tendra que iniciar sesión nuevamente.</string>
+    /** NEW REQUEST **/
+    <string name="txt_create_request">Crear Solicitud</string>
+    <string name="txt_placeholder_request_type">Tipo de Solicitud*</string>
+    <string name="txt_placeholder_area">Area*</string>
+    <string name="txt_placeholder_description">Descripción*</string>
+    <string name="txt_getting_information_by_request">Obteniendo la información para la solicitud...</string>
+    <string name="txt_error_get_information_by_request">Ocurrió un error al obtener la información necesaria para la solicitud.</string>
     /** DIALOGS **/
     <string name="txt_accept">Aceptar</string>
     <string name="txt_title_error_login">Error al iniciar\nsesión</string>

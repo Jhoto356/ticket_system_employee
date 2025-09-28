@@ -31,7 +31,7 @@ private fun NavGraphBuilder.myProfileNav(navController: NavHostController) {
 }
 private fun NavGraphBuilder.newRequestNav(navController: NavHostController) {
     composable<NewRequestRoute> {
-        NewRequestView()
+        NewRequestView(navController)
     }
 
 }

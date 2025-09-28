@@ -16,7 +16,7 @@ data class LoginUIState(
     val domainValue: String = "",
     val emailValue: String = "",
     val passwordValue: String = "",
-    val enabledButton: Boolean = true,
+    val enabledButton: Boolean = false,
     val passwordFocus: Boolean = false,
     val passwordVisible: Boolean = false,
     val isLoading: Boolean = false,

@@ -3,7 +3,7 @@ package com.example.ticket_system_employee.domain.useCases.myProfile
 import android.content.Context
 import com.example.ticket_system_employee.domain.repository.myProfile.MyProfileRepository
 import com.example.ticket_system_employee.domain.result.myProfile.MyProfileResult
-import com.example.ticket_system_employee.presentation.myProfile.MyProfileUISate
+import com.example.ticket_system_employee.presentation.myProfileScreen.MyProfileUISate
 
 class MyProfileUseCases(private val myProfileRepository: MyProfileRepository) {
     fun getContext(): Context = myProfileRepository.getContext()

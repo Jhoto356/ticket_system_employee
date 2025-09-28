@@ -1,4 +1,4 @@
-package com.example.ticket_system_employee.presentation.myProfile
+package com.example.ticket_system_employee.presentation.myProfileScreen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background

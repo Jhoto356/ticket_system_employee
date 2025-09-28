@@ -7,7 +7,7 @@ import com.example.ticket_system_employee.dataSources.local.CompanyDataSource
 import com.example.ticket_system_employee.dataSources.local.EmployeeDataSource
 import com.example.ticket_system_employee.domain.repository.myProfile.MyProfileRepository
 import com.example.ticket_system_employee.domain.result.myProfile.MyProfileResult
-import com.example.ticket_system_employee.presentation.myProfile.MyProfileUISate
+import com.example.ticket_system_employee.presentation.myProfileScreen.MyProfileUISate
 import org.koin.java.KoinJavaComponent.inject
 
 class MyProfileRepositoryImp(private val context: Context): MyProfileRepository {

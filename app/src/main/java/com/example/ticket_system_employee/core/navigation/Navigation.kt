@@ -6,8 +6,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.ticket_system_employee.presentation.mainScreen.MainView
-import com.example.ticket_system_employee.presentation.myProfile.MyProfileView
+import com.example.ticket_system_employee.presentation.myProfileScreen.MyProfileView
 import com.example.ticket_system_employee.presentation.loginScreen.LoginView
+import com.example.ticket_system_employee.presentation.newRequestScreen.NewRequestView
 
 private fun NavGraphBuilder.loginNav(navController: NavHostController) {
     composable<LoginRoute> {
@@ -28,6 +29,12 @@ private fun NavGraphBuilder.myProfileNav(navController: NavHostController) {
     }
 
 }
+private fun NavGraphBuilder.newRequestNav(navController: NavHostController) {
+    composable<NewRequestRoute> {
+        NewRequestView()
+    }
+
+}
 
 private fun NavGraphBuilder.mainNav(navController: NavHostController) {
     composable<MainRoute> { MainView(navController) }
@@ -39,6 +46,7 @@ fun StartupNavHost(navController: NavHostController) {
         loginNav(navController)
         mainNav(navController)
         myProfileNav(navController)
+        newRequestNav(navController)
     }
 
 }

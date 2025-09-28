@@ -28,7 +28,7 @@ import com.example.ticket_system_employee.core.navigation.StartupNavHost
 import com.example.ticket_system_employee.presentation.commons.models.DialogModel
 import com.example.ticket_system_employee.presentation.commons.models.TextFieldModel
 import com.example.ticket_system_employee.presentation.commons.models.TrailingIconTypes
-import com.example.ticket_system_employee.presentation.commons.shared.Dialogues
+import com.example.ticket_system_employee.presentation.commons.shared.DialoguesAndSnackBars
 import com.example.ticket_system_employee.presentation.commons.shared.SharedComponents
 import com.example.ticket_system_employee.presentation.commons.shared.SharedComponents.getModifierWithOnFocusChanged
 import com.example.ticket_system_employee.presentation.theme.*
@@ -65,7 +65,7 @@ fun LoginDialogs(onNavToMain: () -> Unit) {
             }, color = ErrorColor, message = message,
             title = stringResource(R.string.txt_title_error_login)
         )
-        Dialogues.DialogErrorLogin(dialogModel)
+        DialoguesAndSnackBars.GenericErrorDialog(dialogModel)
         loginVM.setIsLoading(false, "")
     }
 

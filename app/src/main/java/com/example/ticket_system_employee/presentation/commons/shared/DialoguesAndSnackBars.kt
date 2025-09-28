@@ -1,9 +1,16 @@
 package com.example.ticket_system_employee.presentation.commons.shared
 
+import android.os.Handler
+import android.os.Looper
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -11,10 +18,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.ticket_system_employee.R
 import com.example.ticket_system_employee.presentation.commons.models.DialogModel
+import com.example.ticket_system_employee.presentation.commons.models.SnackBarModel
 import com.example.ticket_system_employee.presentation.theme.Black
 import com.example.ticket_system_employee.presentation.theme.TextStyles
+import com.example.ticket_system_employee.presentation.theme.White
 
-object Dialogues {
+object DialoguesAndSnackBars {
     @Composable
     private fun TitleDialog(dialogModel: DialogModel, modifier: Modifier) {
         Text(
@@ -25,7 +34,7 @@ object Dialogues {
     }
 
     @Composable
-    private fun MessageContent(dialogModel: DialogModel) {
+    fun MessageContent(dialogModel: DialogModel) {
         Text(
             text = dialogModel.message,
             style = TextStyles.contentStyle(Black),
@@ -45,7 +54,7 @@ object Dialogues {
     }
 
     @Composable
-    fun DialogErrorLogin(dialogModel: DialogModel) {
+    fun GenericErrorDialog(dialogModel: DialogModel) {
         val shape = GenericProperties.roundenShapeDefault
         val borderStroke = GenericProperties.borderStrokeDynamic(dialogModel.color)
         val cardColors = GenericProperties.whiteCardColor
@@ -64,6 +73,37 @@ object Dialogues {
                     ) { DialogAcceptButton(dialogModel) }
                 }
             }
+        }
+
+    }
+
+    @Composable
+    fun SnackBarWithoutAction(snackBarModel: SnackBarModel, snackBarVisible: Boolean) {
+        val animationTime = (snackBarModel.duration / 2).toInt()
+        AnimatedVisibility(
+            visible = snackBarVisible,
+            enter = scaleIn(animationSpec = tween(durationMillis = animationTime)),
+            exit = scaleOut(animationSpec = tween(durationMillis = animationTime))
+        ) {
+            Card(
+                modifier = snackBarModel.modifier.padding(horizontal = 16.dp, vertical = 20.dp),
+                colors = GenericProperties.cardColorsSnackBars(snackBarModel.color)
+            ) {
+                Box(modifier = Modifier.fillMaxWidth()) {
+                    Text(
+                        text = snackBarModel.text, style = TextStyles.snackBarTextStyle(White),
+                        modifier = Modifier.padding(12.dp).fillMaxWidth(), maxLines = 2
+                    )
+                }
+            }
+        }
+        DisposableEffect(Unit) {
+            if (snackBarVisible) {
+                val handler = Handler(Looper.getMainLooper())
+                val runnable = Runnable { snackBarModel.dismissAction.invoke() }
+                handler.postDelayed(runnable, snackBarModel.duration)
+                onDispose { handler.removeCallbacks(runnable) }
+            } else { onDispose { } }
         }
 
     }

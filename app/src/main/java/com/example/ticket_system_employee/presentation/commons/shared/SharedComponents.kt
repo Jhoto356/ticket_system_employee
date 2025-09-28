@@ -165,6 +165,22 @@ object SharedComponents {
     }
 
     @Composable
+    fun CardInformationStatus(snackBarModel: SnackBarModel) {
+        Card(
+            modifier = snackBarModel.modifier.padding(vertical = 20.dp),
+            colors = GenericProperties.cardColorsSnackBars(snackBarModel.color),
+            border = GenericProperties.borderStrokeDynamic(snackBarModel.color)
+        ) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = snackBarModel.text, style = TextStyles.snackBarTextStyle(White),
+                    modifier = Modifier.padding(12.dp).fillMaxWidth(), maxLines = 2
+                )
+            }
+        }
+    }
+
+    @Composable
     fun LoadingSplash(message: String = "") {
         Box(modifier = Modifier.fillMaxSize().background(Black.copy(alpha = 0.5f))) {
             Column(modifier = Modifier.align(Alignment.Center)) {

@@ -44,6 +44,14 @@ object GenericProperties {
         disabledTextColor = Gray
     )
 
+    fun cardColorsSnackBars(color: Color): CardColors {
+        return CardColors(
+            containerColor = color.copy(alpha = 0.7f), contentColor = White,
+            disabledContainerColor = color.copy(alpha = 0.5f), disabledContentColor = White
+        )
+
+    }
+
     @OptIn(ExperimentalMaterial3Api::class)
     val whiteTopAppBarColors = TopAppBarColors(
         containerColor  = White,

@@ -23,4 +23,7 @@ interface EmployeeDao {
     @Query("UPDATE Employee SET inUse = 1 WHERE id =:id")
     fun updateEmployeeInUse(id: Long)
 
+    @Query("UPDATE Employee SET password =:newPassword WHERE id =:id AND inUse = 1")
+    fun updateEmployeePassword(newPassword: String, id: Long)
+
 }

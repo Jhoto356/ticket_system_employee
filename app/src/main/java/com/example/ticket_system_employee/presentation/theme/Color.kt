@@ -17,3 +17,4 @@ val Gray = Color(0xFFC6C6C6)
 val Transparent = Color(0x00000000)
 
 val ErrorColor = Color(0xFFD50000)
+val SuccessColor = Color(0xFF088D00)

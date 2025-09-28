@@ -9,14 +9,14 @@ import androidx.compose.ui.unit.sp
 object TextStyles {
     fun titleStyle(color: Color) = TextStyle(
         color = color,
-        fontSize = 22.sp,
+        fontSize = 20.sp,
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Center
     )
 
     fun subtitleSectionStyle(color: Color) = TextStyle(
         color = color,
-        fontSize = 20.sp,
+        fontSize = 18.sp,
         fontWeight = FontWeight.SemiBold,
         textAlign = TextAlign.Start
     )
@@ -46,6 +46,13 @@ object TextStyles {
         color = color,
         fontSize = 18.sp,
         fontWeight = FontWeight.SemiBold,
+        textAlign = TextAlign.Center
+    )
+
+    fun snackBarTextStyle(color: Color) = TextStyle(
+        color = color,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Medium,
         textAlign = TextAlign.Center
     )
 

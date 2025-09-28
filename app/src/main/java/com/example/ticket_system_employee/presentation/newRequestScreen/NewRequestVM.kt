@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 import com.example.ticket_system_employee.R
 import com.example.ticket_system_employee.core.db.adapters.EmployeeWithCompany
 import com.example.ticket_system_employee.core.db.adapters.LookupItemsToUI
+import com.example.ticket_system_employee.core.db.entities.TicketEntity
+import com.example.ticket_system_employee.core.uitls.UtilsProject
 import com.example.ticket_system_employee.domain.result.newRequest.NewRequestResult
 
 data class NewRequestUIState(
@@ -27,7 +29,8 @@ data class NewRequestUIState(
     val lookupItemsToUI: LookupItemsToUI = LookupItemsToUI(),
     val errorStatus: Boolean = false,
     val errorMessage: String = "",
-    val enabledButton: Boolean = false
+    val enabledButton: Boolean = false,
+    val ticketSuccessSave: Boolean = false
 )
 
 class NewRequestVM(
@@ -43,6 +46,9 @@ class NewRequestVM(
 
     fun setRequestTypeFocus(value: Boolean) {
         newRequestUIState.update { it.copy(requestTypeFocus = value) }
+    }
+    fun setTicketSuccessSave(value: Boolean) {
+        newRequestUIState.update { it.copy(ticketSuccessSave = value) }
     }
     fun setRequestTypeValue(value: String) {
         newRequestUIState.update { it.copy(requestTypeValue = value) }
@@ -98,6 +104,17 @@ class NewRequestVM(
             }
 
         }
+    }
+
+    fun addNewTicket() {
+        UtilsProject.lstTickets.add(
+            TicketEntity(
+                requestType = newRequestUIState.value.requestTypeValue,
+                area = newRequestUIState.value.areaValue,
+                description = newRequestUIState.value.descriptionValue,
+                status = 2 // Pending
+            )
+        )
     }
 
 }

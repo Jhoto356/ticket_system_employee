@@ -65,7 +65,7 @@ fun LoginDialogs(onNavToMain: () -> Unit) {
             }, color = ErrorColor, message = message,
             title = stringResource(R.string.txt_title_error_login)
         )
-        DialoguesAndSnackBars.GenericErrorDialog(dialogModel)
+        DialoguesAndSnackBars.GenericDialog(dialogModel)
         loginVM.setIsLoading(false, "")
     }
 

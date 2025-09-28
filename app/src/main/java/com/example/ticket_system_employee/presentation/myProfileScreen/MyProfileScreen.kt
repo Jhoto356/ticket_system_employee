@@ -101,7 +101,7 @@ fun Dialogs(navController: NavController) {
             }, title = stringResource(R.string.txt_title_error_getting_information),
             color = ErrorColor, message = uiSate.message
         )
-        DialoguesAndSnackBars.GenericErrorDialog(dialogModel)
+        DialoguesAndSnackBars.GenericDialog(dialogModel)
     }
     if (uiSate.showDialogChangePassword) {
         myProfileVM.setIsLoading(true, stringResource(R.string.txt_validating_and_updating_password))

@@ -13,9 +13,9 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 data class LoginUIState(
-    val domainValue: String = "Areandina",
-    val emailValue: String = "maria.garcia@example.com",
-    val passwordValue: String = "securePass1*",
+    val domainValue: String = "",
+    val emailValue: String = "",
+    val passwordValue: String = "",
     val enabledButton: Boolean = true,
     val passwordFocus: Boolean = false,
     val passwordVisible: Boolean = false,

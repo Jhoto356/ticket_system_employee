@@ -54,7 +54,7 @@ object DialoguesAndSnackBars {
     }
 
     @Composable
-    fun GenericErrorDialog(dialogModel: DialogModel) {
+    fun GenericDialog(dialogModel: DialogModel) {
         val shape = GenericProperties.roundenShapeDefault
         val borderStroke = GenericProperties.borderStrokeDynamic(dialogModel.color)
         val cardColors = GenericProperties.whiteCardColor

@@ -20,6 +20,7 @@ import com.example.ticket_system_employee.presentation.commons.models.TrailingIc
 import com.example.ticket_system_employee.presentation.commons.shared.DialoguesAndSnackBars
 import com.example.ticket_system_employee.presentation.commons.shared.SharedComponents
 import com.example.ticket_system_employee.presentation.commons.shared.SharedComponents.getModifierWithOnFocusChanged
+import com.example.ticket_system_employee.presentation.theme.Blue
 import com.example.ticket_system_employee.presentation.theme.ErrorColor
 import com.example.ticket_system_employee.presentation.theme.White
 import org.koin.androidx.compose.koinViewModel
@@ -45,7 +46,11 @@ fun NewRequestView(navController: NavController) {
             RequestForm(Modifier.weight(1f))
             SharedComponents.BlueFilledButton(
                 modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp), enabled = uiState.enabledButton,
-                onClick = {}, text = R.string.txt_create_request
+                onClick = {
+                    newRequestVM.addNewTicket()
+                    newRequestVM.setTicketSuccessSave(true)
+                },
+                text = R.string.txt_create_request
             )
         }
     }
@@ -57,6 +62,18 @@ fun Dialogs(navController: NavController) {
     val newRequestVM: NewRequestVM = koinViewModel<NewRequestVM>()
     val uiState = newRequestVM.newRequestUIStateValue.collectAsState().value
 
+    if (uiState.ticketSuccessSave) {
+        newRequestVM.setIsLoading(false)
+        val dialogModel = DialogModel(
+            title = "Ticket guardado", color = Blue,
+            confirmAction = {
+                newRequestVM.setTicketSuccessSave(false)
+                navController.popBackStack()
+            }, message = "El ticket fue guardadoc correctamnte, y esta pendiente de aprobación."
+        )
+        DialoguesAndSnackBars.GenericDialog(dialogModel)
+    }
+
     if (uiState.errorStatus) {
         newRequestVM.setIsLoading(false)
         val dialogModel = DialogModel(
@@ -66,7 +83,7 @@ fun Dialogs(navController: NavController) {
                 navController.popBackStack()
             }, message = stringResource(R.string.txt_error_get_information_by_request)
         )
-        DialoguesAndSnackBars.GenericErrorDialog(dialogModel)
+        DialoguesAndSnackBars.GenericDialog(dialogModel)
     }
 }
 

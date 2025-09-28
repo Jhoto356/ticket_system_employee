@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_name">Mis Solicitudes</string>
     /** Login **/
     <string name="txt_welcome">Bienvenido</string>
     <string name="txt_version">Versión: %1$s</string>

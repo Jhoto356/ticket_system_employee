@@ -3,8 +3,11 @@ package com.example.ticket_system_employee.data.repositoryImp.login
 import android.content.Context
 import android.util.Log
 import com.example.ticket_system_employee.R
+import com.example.ticket_system_employee.dataSources.local.AreaDataSource
 import com.example.ticket_system_employee.dataSources.local.CompanyDataSource
 import com.example.ticket_system_employee.dataSources.local.EmployeeDataSource
+import com.example.ticket_system_employee.dataSources.local.RequestTypeDataSource
+import com.example.ticket_system_employee.dataSources.local.TicketDataSource
 import com.example.ticket_system_employee.domain.repository.login.LoginRepository
 import com.example.ticket_system_employee.domain.result.login.LoginResult
 import com.example.ticket_system_employee.presentation.commons.models.EmployeeToLogin
@@ -14,6 +17,9 @@ class LoginRepositoryImp(private val context: Context): LoginRepository {
     /** DATA SOURCES **/
     private val companyDataSource: CompanyDataSource by KoinJavaComponent.inject(CompanyDataSource::class.java)
     private val employeeDataSource: EmployeeDataSource by KoinJavaComponent.inject(EmployeeDataSource::class.java)
+    private val ticketDataSource: TicketDataSource by KoinJavaComponent.inject(TicketDataSource::class.java)
+    private val requestTypeDataSource: RequestTypeDataSource by KoinJavaComponent.inject(RequestTypeDataSource::class.java)
+    private val areaDataSource: AreaDataSource by KoinJavaComponent.inject(AreaDataSource::class.java)
 
     /** METHODS **/
     override fun getContext(): Context { return context }
@@ -59,6 +65,18 @@ class LoginRepositoryImp(private val context: Context): LoginRepository {
             e.printStackTrace()
         }
 
+    }
+
+    private fun validateAreasData() {
+        val areas = areaDataSource.
+    }
+
+    private fun validateRequestsTypeData() {
+        TODO("Not yet implemented")
+    }
+
+    private fun validateTicketsData() {
+        TODO("Not yet implemented")
     }
 
     private fun validateCompanyData() {

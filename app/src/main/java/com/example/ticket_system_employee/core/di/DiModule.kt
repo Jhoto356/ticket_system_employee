@@ -25,6 +25,9 @@ val appModule = module {
 val dataBaseModule = module {
     single { DataBase.providerEmployeeDao(get()) }
     single { DataBase.providerCompanyDao(get()) }
+    single { DataBase.providerTicketDao(get()) }
+    single { DataBase.providerAreaDao(get()) }
+    single { DataBase.providerRequestTypeDao(get()) }
 }
 
 val dataSourcesModule = module {

@@ -102,6 +102,10 @@ class NewRequestVM(
                 is NewRequestResult.GetInformationError -> {
                     setErrorStatus(true, result.message)
                 }
+                else -> {
+                    val message = context.getString(R.string.txt_error_get_information_by_request)
+                    setErrorStatus(true, message)
+                }
             }
 
         }
@@ -112,12 +116,26 @@ class NewRequestVM(
             setErrorStatus(true, context.getString(R.string.txt_create_request_error))
             return
         }
-        TicketEntity(
+        val ticket = TicketEntity(
             categoryId = newRequestUIState.value.requestTypeValue!!.id,
             areaId = newRequestUIState.value.areaValue!!.id, modifiedDate = "",
             description = newRequestUIState.value.descriptionValue,
             status = TicketStatus.PENDING.statusId, registerDate = dateAndTimeUtils.getDateAndTime()
         )
+        viewModelScope.launch(dispatcherIO) {
+            when(val result = newRequestUseCases.saveNewTicket(ticket)) {
+                is NewRequestResult.SuccessSave -> {
+                    setTicketSuccessSave(true)
+                }
+                is NewRequestResult.ErrorSave -> {
+                    setErrorStatus(true, result.message)
+                }
+                else -> {
+                    val message = context.getString(R.string.txt_create_request_error)
+                    setErrorStatus(true, message)
+                }
+            }
+        }
 
     }
 

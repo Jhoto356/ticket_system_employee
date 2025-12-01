@@ -155,29 +155,33 @@ fun RequestForm(modifier: Modifier) {
             readOnly = true,
             trailingIcon = TrailingIconTypes.DROPDOWN
         )
-        SharedComponents.OutlinedTextFieldCustom(
-            modifier = Modifier.getModifierWithOnFocusChanged { isFocus ->
-                newRequestVM.setRequestTypeFocus(isFocus)
-            }.fillMaxWidth().padding(bottom = 16.dp),
-            value = uiState.requestTypeValue!!.description,
-            onValueChange = { _ -> newRequestVM.setRequestTypeValue(uiState.requestTypeValue) },
-            isFocused = uiState.requestTypeFocus,
-            textFieldModel = requestTypeTextFieldModel
-        )
+        if (uiState.requestTypeValue != null) {
+            SharedComponents.OutlinedTextFieldCustom(
+                modifier = Modifier.getModifierWithOnFocusChanged { isFocus ->
+                    newRequestVM.setRequestTypeFocus(isFocus)
+                }.fillMaxWidth().padding(bottom = 16.dp),
+                value = uiState.requestTypeValue.description,
+                onValueChange = { _ -> newRequestVM.setRequestTypeValue(uiState.requestTypeValue) },
+                isFocused = uiState.requestTypeFocus,
+                textFieldModel = requestTypeTextFieldModel
+            )
+        }
         val areaTextFieldModel = TextFieldModel(
             label = { Text(stringResource(R.string.txt_placeholder_area)) },
             readOnly = true,
             trailingIcon = TrailingIconTypes.DROPDOWN
         )
-        SharedComponents.OutlinedTextFieldCustom(
-            modifier = Modifier.getModifierWithOnFocusChanged { isFocus ->
-                newRequestVM.setAreaFocus(isFocus)
-            }.fillMaxWidth().padding(bottom = 16.dp),
-            value = uiState.areaValue!!.description,
-            onValueChange = { _ -> newRequestVM.setAreaValue(uiState.areaValue) },
-            isFocused = uiState.areaFocus,
-            textFieldModel = areaTextFieldModel
-        )
+        if (uiState.areaValue != null) {
+            SharedComponents.OutlinedTextFieldCustom(
+                modifier = Modifier.getModifierWithOnFocusChanged { isFocus ->
+                    newRequestVM.setAreaFocus(isFocus)
+                }.fillMaxWidth().padding(bottom = 16.dp),
+                value = uiState.areaValue.description,
+                onValueChange = { _ -> newRequestVM.setAreaValue(uiState.areaValue) },
+                isFocused = uiState.areaFocus,
+                textFieldModel = areaTextFieldModel
+            )
+        }
         val descriptionTextFieldModel = TextFieldModel(
             label = { Text(stringResource(R.string.txt_placeholder_description)) },
             maxLines = 5, singleLine = false

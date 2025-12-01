@@ -15,6 +15,7 @@
     <string name="txt_go_new_request">Crear Solicitud</string>
     <string name="txt_close_session">Cerrar Sesión</string>
     <string name="txt_go_my_profile">Mi Perfil</string>
+    <string name="txt_error_loading_information">Error al obtener la información</string>
     /** Profile **/
     <string name="txt_my_profile">Mi Perfil</string>
     <string name="txt_button_change_password">Cambiar Contraseña</string>

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
@@ -21,6 +20,7 @@ import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,13 +28,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.ticket_system_employee.R
-import com.example.ticket_system_employee.core.db.entities.TicketEntity
-import com.example.ticket_system_employee.core.uitls.UtilsProject
+import com.example.ticket_system_employee.core.db.adapters.TicketAdapterToUI
 import com.example.ticket_system_employee.presentation.commons.models.ToolBarModel
 import com.example.ticket_system_employee.presentation.commons.shared.GenericProperties
 import com.example.ticket_system_employee.presentation.commons.shared.SharedComponents
 import com.example.ticket_system_employee.presentation.theme.Black
 import com.example.ticket_system_employee.presentation.theme.White
+import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainView(navController: NavHostController) {
@@ -61,23 +61,26 @@ fun MainView(navController: NavHostController) {
 
 @Composable
 fun ListOfTickets() {
+    val mainVM = koinViewModel<MainVM>()
+    val uiState = mainVM.mainUIStateValues.collectAsState().value
+    mainVM.getTickets()
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(
-            count = UtilsProject.lstTickets.size
+            count = uiState.lstTickets.size
         ) {
-            ItemTicket(UtilsProject.lstTickets[it])
+            ItemTicket(uiState.lstTickets[it])
             Spacer(modifier = Modifier.height(14.dp))
         }
     }
 }
 
 @Composable
-fun ItemTicket(ticketEntity: TicketEntity) {
-    val icon = when(ticketEntity.status) {
-        0 -> { Icons.Default.Close }
-        1 -> { Icons.Default.Check }
-        2 -> { Icons.Filled.DateRange }
-        3 -> {
+fun ItemTicket(ticketAdapterToUI: TicketAdapterToUI) {
+    val icon = when(ticketAdapterToUI.status) {
+        0L -> { Icons.Default.DateRange }
+        1L -> { Icons.Default.Check }
+        2L -> { Icons.Filled.Close }
+        3L -> {
             Icons.Default.Delete
         }
         else -> {
@@ -97,8 +100,8 @@ fun ItemTicket(ticketEntity: TicketEntity) {
             Spacer(modifier = Modifier.width(12.dp))
             Column(modifier = Modifier.weight(1f)) {
                 SharedComponents.InformationItem(
-                    subtitle = ticketEntity.requestType,
-                    information = ticketEntity.description,
+                    subtitle = ticketAdapterToUI.category,
+                    information = ticketAdapterToUI.description,
                     modifier = Modifier.fillMaxWidth()
 
                 )

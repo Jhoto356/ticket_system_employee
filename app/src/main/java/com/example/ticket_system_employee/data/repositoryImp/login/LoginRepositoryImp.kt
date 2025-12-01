@@ -123,7 +123,7 @@ class LoginRepositoryImp(private val context: Context): LoginRepository {
             TicketEntity(
                 categoryId = requestType.id, areaId = area.id,
                 description = context.getString(R.string.txt_ticket_description_iphone_17_pro_max),
-                status = TicketStatus.REMOVED.statusId, registerDate = "2025-06-17 01:47:10",
+                status = TicketStatus.REJECTED.statusId, registerDate = "2025-06-17 01:47:10",
                 modifiedDate = "2025-06-19 10:30:15"
             )
         )

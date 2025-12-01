@@ -39,27 +39,8 @@ class EmployeeDataSource(private val employeeDao: EmployeeDao) {
 
     }
 
-    fun insertEmployees() {
+    fun insertEmployees(lstEmployeesToSave: List<EmployeeEntity>) {
         return try {
-            val company = companyDataSource.getCompany() ?: return
-            val companyId = company.id
-            val lstEmployeesToSave = listOf(
-                EmployeeEntity(
-                    document = "111222333", email = "maria.garcia@example.com",
-                    password = "securePass1*", name = "María", secondName = "Fernanda", lastName = "García",
-                    secondLastName = "López", enabled = true, inUse = false, company = companyId,
-                ),
-                EmployeeEntity(
-                    document = "444555666", email = "juan.martinez@example.com",
-                    password = "password_123", name = "Juan", secondName = null, lastName = "Martínez",
-                    secondLastName = null, enabled = true, inUse = false, company = companyId
-                ),
-                EmployeeEntity(
-                    document = "777888999", email = "ana.rodriguez@example.com",
-                    password = "myPass!234", name = "Ana", secondName = "Isabel", lastName = "Rodríguez",
-                    secondLastName = null, enabled = true, inUse = false, company = companyId
-                )
-            )
             employeeDao.insertEmployees(lstEmployeesToSave)
         } catch (e: Exception) {
             e.printStackTrace()

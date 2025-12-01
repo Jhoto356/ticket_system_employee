@@ -11,7 +11,7 @@ data class AreaAdapterToUI(
 )
 
 fun AreaEntity.toModel() = AreaAdapterToUI(
-    id = id,
+    id = areaId,
     description = description,
     status = status
 )

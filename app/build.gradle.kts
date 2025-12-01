@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.ticket_system_employee"
-        minSdk = 24
+        minSdk = 27
         targetSdk = 36
         versionCode = 1
         versionName = "1.0.0"

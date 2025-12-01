@@ -51,4 +51,12 @@
     <string name="txt_title_error_getting_information">Error al obtener\nla información</string>
     <string name="txt_title_change_password">Cambio de Contraseña</string>
     <string name="txt_title_change_password_success">Cambio de contraseña\nexitoso</string>
+    /** LOOKUPS **/
+    <string name="txt_operation_area">Operaciones</string>
+    <string name="txt_request_type_equipment">Equipo</string>
+    <string name="txt_ticket_description_mac_24_512_gb">MacBook Pro 24/512 GB</string>
+    <string name="txt_ticket_description_lenovo_think_pad_16_512_gb">Lenovo ThinkPad 16/512 GB</string>
+    <string name="txt_ticket_description_iphone_17_pro_max">IPhone 17 Pro 8/256 GB</string>
+    /** ERRORS **/
+    <string name="txt_create_request_error">No se puedo crear la solicitud</string>
 </resources>

@@ -144,7 +144,7 @@ fun RequestForm(modifier: Modifier) {
     val newRequestVM: NewRequestVM = koinViewModel<NewRequestVM>()
     val uiState = newRequestVM.newRequestUIStateValue.collectAsState().value
     val lookupItemsToUI = uiState.lookupItemsToUI
-    if (lookupItemsToUI.requestType.isNotEmpty() && lookupItemsToUI.area.isNotEmpty()) {
+    if (lookupItemsToUI.requestType != null && lookupItemsToUI.area != null) {
         newRequestVM.setIsLoading(false)
         newRequestVM.setAreaValue(lookupItemsToUI.area)
         newRequestVM.setRequestTypeValue(lookupItemsToUI.requestType)
@@ -159,8 +159,8 @@ fun RequestForm(modifier: Modifier) {
             modifier = Modifier.getModifierWithOnFocusChanged { isFocus ->
                 newRequestVM.setRequestTypeFocus(isFocus)
             }.fillMaxWidth().padding(bottom = 16.dp),
-            value = uiState.requestTypeValue,
-            onValueChange = { value -> newRequestVM.setRequestTypeValue(value) },
+            value = uiState.requestTypeValue!!.description,
+            onValueChange = { _ -> newRequestVM.setRequestTypeValue(uiState.requestTypeValue) },
             isFocused = uiState.requestTypeFocus,
             textFieldModel = requestTypeTextFieldModel
         )
@@ -173,8 +173,8 @@ fun RequestForm(modifier: Modifier) {
             modifier = Modifier.getModifierWithOnFocusChanged { isFocus ->
                 newRequestVM.setAreaFocus(isFocus)
             }.fillMaxWidth().padding(bottom = 16.dp),
-            value = uiState.areaValue,
-            onValueChange = { value -> newRequestVM.setAreaValue(value) },
+            value = uiState.areaValue!!.description,
+            onValueChange = { _ -> newRequestVM.setAreaValue(uiState.areaValue) },
             isFocused = uiState.areaFocus,
             textFieldModel = areaTextFieldModel
         )

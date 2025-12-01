@@ -24,13 +24,8 @@ class CompanyDataSource(private val companyDao: CompanyDao) {
 
     }
 
-    fun insertCompany() {
+    fun insertCompany(companyToSave: CompanyEntity) {
         return try {
-            val companyToSave = CompanyEntity(
-                companyName = "Areandina",
-                nit = "09-123456789",
-                status = true
-            )
             companyDao.insertCompany(companyToSave)
         } catch (e: Exception) {
             e.printStackTrace()

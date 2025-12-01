@@ -11,17 +11,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import com.example.ticket_system_employee.R
+import com.example.ticket_system_employee.core.db.adapters.AreaAdapterToUI
 import com.example.ticket_system_employee.core.db.adapters.EmployeeWithCompany
 import com.example.ticket_system_employee.core.db.adapters.LookupItemsToUI
+import com.example.ticket_system_employee.core.db.adapters.RequestTypeAdapterToUI
 import com.example.ticket_system_employee.core.db.entities.TicketEntity
-import com.example.ticket_system_employee.core.uitls.UtilsProject
+import com.example.ticket_system_employee.core.uitls.DateAndTimeUtils
+import com.example.ticket_system_employee.core.uitls.TicketStatus
 import com.example.ticket_system_employee.domain.result.newRequest.NewRequestResult
+import org.koin.java.KoinJavaComponent.inject
 
 data class NewRequestUIState(
     val requestTypeFocus: Boolean = false,
-    val requestTypeValue: String = "",
+    val requestTypeValue: RequestTypeAdapterToUI ?= null,
     val areaFocus: Boolean = false,
-    val areaValue: String = "",
+    val areaValue: AreaAdapterToUI ?= null,
     val descriptionValue: String = "",
     val isLoading: Boolean = false,
     val loadingMessage: String = "",
@@ -39,6 +43,7 @@ class NewRequestVM(
 ): ViewModel() {
     /** UTILS **/
     private val context: Context get() = newRequestUseCases.getContext()
+    private val dateAndTimeUtils: DateAndTimeUtils by inject(DateAndTimeUtils::class.java)
 
     /** STATES **/
     private val newRequestUIState = MutableStateFlow(NewRequestUIState())
@@ -50,14 +55,14 @@ class NewRequestVM(
     fun setTicketSuccessSave(value: Boolean) {
         newRequestUIState.update { it.copy(ticketSuccessSave = value) }
     }
-    fun setRequestTypeValue(value: String) {
+    fun setRequestTypeValue(value: RequestTypeAdapterToUI) {
         newRequestUIState.update { it.copy(requestTypeValue = value) }
         setEnabledButton()
     }
     fun setAreaFocus(value: Boolean) {
         newRequestUIState.update { it.copy(areaFocus = value) }
     }
-    fun setAreaValue(value: String) {
+    fun setAreaValue(value: AreaAdapterToUI) {
         newRequestUIState.update { it.copy(areaValue = value) }
         setEnabledButton()
     }
@@ -72,8 +77,8 @@ class NewRequestVM(
         newRequestUIState.update { it.copy(errorStatus = value, errorMessage = message) }
     }
     fun setEnabledButton() {
-        val requestType = newRequestUIState.value.requestTypeValue.isNotEmpty()
-        val area = newRequestUIState.value.areaValue.isNotEmpty()
+        val requestType = newRequestUIState.value.requestTypeValue?.id != 0L
+        val area = newRequestUIState.value.areaValue?.id != 0L
         val description =newRequestUIState.value.descriptionValue.isNotEmpty()
         val enabled = requestType && area && description
         newRequestUIState.update { it.copy(enabledButton = enabled) }
@@ -97,24 +102,23 @@ class NewRequestVM(
                 is NewRequestResult.GetInformationError -> {
                     setErrorStatus(true, result.message)
                 }
-                else -> {
-                    val message = context.getString(R.string.txt_error_get_information_by_request)
-                    setErrorStatus(true, message)
-                }
             }
 
         }
     }
 
     fun addNewTicket() {
-        UtilsProject.lstTickets.add(
-            TicketEntity(
-                requestType = newRequestUIState.value.requestTypeValue,
-                area = newRequestUIState.value.areaValue,
-                description = newRequestUIState.value.descriptionValue,
-                status = 2 // Pending
-            )
+        if (newRequestUIState.value.areaValue?.id == null || newRequestUIState.value.requestTypeValue?.id == null) {
+            setErrorStatus(true, context.getString(R.string.txt_create_request_error))
+            return
+        }
+        TicketEntity(
+            categoryId = newRequestUIState.value.requestTypeValue!!.id,
+            areaId = newRequestUIState.value.areaValue!!.id, modifiedDate = "",
+            description = newRequestUIState.value.descriptionValue,
+            status = TicketStatus.PENDING.statusId, registerDate = dateAndTimeUtils.getDateAndTime()
         )
+
     }
 
 }

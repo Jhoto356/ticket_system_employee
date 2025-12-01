@@ -21,6 +21,6 @@ data class TicketEntity(
     val status: Long,
     @ColumnInfo("registerDate")
     val registerDate: String,
-    @ColumnInfo("approvalDate")
-    val approvalDate: String
+    @ColumnInfo("modifiedDate")
+    val modifiedDate: String
 )

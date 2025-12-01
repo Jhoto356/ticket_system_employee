@@ -3,6 +3,12 @@ package com.example.ticket_system_employee.data.repositoryImp.login
 import android.content.Context
 import android.util.Log
 import com.example.ticket_system_employee.R
+import com.example.ticket_system_employee.core.db.entities.AreaEntity
+import com.example.ticket_system_employee.core.db.entities.CompanyEntity
+import com.example.ticket_system_employee.core.db.entities.EmployeeEntity
+import com.example.ticket_system_employee.core.db.entities.RequestTypeEntity
+import com.example.ticket_system_employee.core.db.entities.TicketEntity
+import com.example.ticket_system_employee.core.uitls.TicketStatus
 import com.example.ticket_system_employee.dataSources.local.AreaDataSource
 import com.example.ticket_system_employee.dataSources.local.CompanyDataSource
 import com.example.ticket_system_employee.dataSources.local.EmployeeDataSource
@@ -61,6 +67,9 @@ class LoginRepositoryImp(private val context: Context): LoginRepository {
         try {
             validateCompanyData()
             validateEmployeeData()
+            validateAreasData()
+            validateRequestsTypeData()
+            validateTicketsData()
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -68,27 +77,93 @@ class LoginRepositoryImp(private val context: Context): LoginRepository {
     }
 
     private fun validateAreasData() {
-        val areas = areaDataSource.
+        val areas = areaDataSource.getAllAreas()
+        if (areas.isNotEmpty()) return
+        val lstAreas = ArrayList<AreaEntity>()
+        val operation = AreaEntity(
+            areaId = 1,
+            description = context.getString(R.string.txt_operation_area),
+            status = true
+        )
+        lstAreas.add(operation)
+        areaDataSource.insertAreas(lstAreas)
     }
 
     private fun validateRequestsTypeData() {
-        TODO("Not yet implemented")
+        val requestsType = requestTypeDataSource.getAllRequestType()
+        if (requestsType.isNotEmpty()) return
+        val lstRequestType = ArrayList<RequestTypeEntity>()
+        val requestType = RequestTypeEntity(
+            requestTypeId = 1,
+            description = context.getString(R.string.txt_request_type_equipment),
+            status = true
+        )
+        lstRequestType.add(requestType)
+        requestTypeDataSource.insertRequestType(lstRequestType)
     }
 
     private fun validateTicketsData() {
-        TODO("Not yet implemented")
+        val tickets = ticketDataSource.getAllTickets()
+        if (tickets.isNotEmpty()) return
+        val area = areaDataSource.getEnabledAreas().first()
+        val requestType = requestTypeDataSource.getEnabledRequestType().first()
+        val lstTickets = listOf(
+            TicketEntity(
+                categoryId = requestType.id, areaId = area.id,
+                description = context.getString(R.string.txt_ticket_description_mac_24_512_gb),
+                status = TicketStatus.REMOVED.statusId, registerDate = "2025-06-17 12:35:10",
+                modifiedDate = "2025-06-19 10:30:15"
+            ),
+            TicketEntity(
+                categoryId = requestType.id, areaId = area.id,
+                description = context.getString(R.string.txt_ticket_description_lenovo_think_pad_16_512_gb),
+                status = TicketStatus.APPROVED.statusId, registerDate = "2025-06-13 02:55:35",
+                modifiedDate = "2025-06-15 11:37:28"
+            ),
+            TicketEntity(
+                categoryId = requestType.id, areaId = area.id,
+                description = context.getString(R.string.txt_ticket_description_iphone_17_pro_max),
+                status = TicketStatus.REMOVED.statusId, registerDate = "2025-06-17 01:47:10",
+                modifiedDate = "2025-06-19 10:30:15"
+            )
+        )
+        ticketDataSource.insertDefaultTickets(lstTickets)
     }
 
     private fun validateCompanyData() {
         val company = companyDataSource.getCompany()
         if (company != null) return
-        companyDataSource.insertCompany()
+        val companyToSave = CompanyEntity(
+            companyName = "Areandina",
+            nit = "09-123456789",
+            status = true
+        )
+        companyDataSource.insertCompany(companyToSave)
     }
 
     private fun validateEmployeeData() {
         val employees = employeeDataSource.getEmployees()
         if (employees.isNotEmpty()) return
-        employeeDataSource.insertEmployees()
+        val company = companyDataSource.getCompany() ?: return
+        val companyId = company.id
+        val lstEmployeesToSave = listOf(
+            EmployeeEntity(
+                document = "111222333", email = "maria.garcia@example.com",
+                password = "securePass1*", name = "María", secondName = "Fernanda", lastName = "García",
+                secondLastName = "López", enabled = true, inUse = false, company = companyId,
+            ),
+            EmployeeEntity(
+                document = "444555666", email = "juan.martinez@example.com",
+                password = "password_123", name = "Juan", secondName = null, lastName = "Martínez",
+                secondLastName = null, enabled = true, inUse = false, company = companyId
+            ),
+            EmployeeEntity(
+                document = "777888999", email = "ana.rodriguez@example.com",
+                password = "myPass!234", name = "Ana", secondName = "Isabel", lastName = "Rodríguez",
+                secondLastName = null, enabled = true, inUse = false, company = companyId
+            )
+        )
+        employeeDataSource.insertEmployees(lstEmployeesToSave)
     }
 
 
